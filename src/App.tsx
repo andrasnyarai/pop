@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect, useRef } from 'react'
+import { motion } from 'framer-motion'
+
+import logo from './logo.svg'
+
+import { useYScrollPosition } from './hooks/useYScrollPosition'
 
 function App() {
+  const { previous, current } = useYScrollPosition()
+
+  const shouldShrinkHeader = current > previous
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ height: '3000px' }}>
+      <motion.header
+        transition={{ delay: 0.2 }}
+        animate={{ height: shouldShrinkHeader ? '10px' : '50px' }}
+        style={{ height: '50px', backgroundColor: 'red', position: 'sticky', top: 0 }}
+      >
+        imba header
+      </motion.header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
