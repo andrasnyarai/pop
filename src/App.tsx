@@ -1,25 +1,31 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
-
-import logo from './logo.svg'
+import React from 'react'
+import { createGlobalStyle } from 'styled-components'
 
 import { useYScrollPosition } from './hooks/useYScrollPosition'
+import { Header } from './components/Header'
+
+const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font: normal normal bold 14px/20px Roboto;
+  }
+`
 
 function App() {
   const { previous, current } = useYScrollPosition()
 
-  const shouldShrinkHeader = current > previous
+  const isSmallHeader = current > previous
 
   return (
-    <div style={{ height: '3000px' }}>
-      <motion.header
-        transition={{ delay: 0.2 }}
-        animate={{ height: shouldShrinkHeader ? '10px' : '50px' }}
-        style={{ height: '50px', backgroundColor: 'red', position: 'sticky', top: 0 }}
-      >
-        imba header
-      </motion.header>
-    </div>
+    <>
+      <GlobalStyle />
+      <div style={{ height: 3000, backgroundColor: 'rebeccapurple' }}>
+        <Header isSmallHeader={isSmallHeader} />
+      </div>
+    </>
   )
 }
 
