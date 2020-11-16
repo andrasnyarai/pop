@@ -29,11 +29,7 @@ export const Container = styled(motion.header)`
 
 export const Wrapper = styled(motion.div)`
   position: absolute;
-  display: grid;
-  align-items: center;
-  justify-items: center;
-
-  grid-template-columns: 25px 100px 13fr 1fr 1fr;
+  display: flex;
 
   width: calc(100% - 2 * var(--padding));
 `
