@@ -5,44 +5,56 @@ import titleSrc from '../../assets/title.svg'
 import { RegistrationButton } from '../RegistrationButton'
 import { SearchButton } from '../SearchButton'
 import { useYScrollPosition } from '../../hooks/useYScrollPosition'
+import { useWindowSize } from '../../hooks/useWindowSize'
 import { easeInOut } from '../../transitions'
 import * as S from './styles'
+import { Rail } from '../Rail'
+
+// deploy
+// move rail comp
 
 export const HeaderContext = createContext({
   isSmallHeader: false,
+
+  isExtraSmallScreen: false,
+  isSmallScreen: false,
+  isMediumScreen: false,
+  isLargeScreen: false,
 })
 
 export function Header() {
   const { previous, current } = useYScrollPosition()
+  const { width } = useWindowSize()
+
+  const isExtraSmallScreen = width <= 475
+  const isSmallScreen = 475 < width && width <= 650
+  const isMediumScreen = 650 < width && width <= 900
+  const isLargeScreen = 900 < width
 
   const isSmallHeader = current > previous
 
   return (
-    <HeaderContext.Provider value={{ isSmallHeader }}>
+    <HeaderContext.Provider value={{ isSmallHeader, isExtraSmallScreen, isSmallScreen, isMediumScreen, isLargeScreen }}>
       <S.Container transition={easeInOut} animate={{ height: isSmallHeader ? 50 : 125 }}>
         <S.Wrapper transition={easeInOut} initial={{ y: 30 }} animate={{ y: isSmallHeader ? 13 : 30 }}>
-          <S.Img src={logoSrc} style={{ width: 25, marginRight: 5 }} />
-          <S.Img src={titleSrc} transition={easeInOut} initial={{ y: 0 }} animate={{ y: isSmallHeader ? -60 : 0 }} />
+          <S.Img
+            src={logoSrc}
+            transition={easeInOut}
+            initial={{ y: 5 }}
+            animate={{ y: isSmallHeader ? 0 : 5 }}
+            style={{ width: 25, marginRight: 5 }}
+          />
+          <S.Img
+            src={titleSrc}
+            transition={easeInOut}
+            initial={{ y: 5 }}
+            animate={{ y: isSmallHeader || isExtraSmallScreen ? -60 : 5 }}
+          />
 
           <SearchButton />
           <RegistrationButton />
         </S.Wrapper>
-        <S.Rail
-          transition={easeInOut}
-          initial={{ x: 0, y: -15 }}
-          animate={isSmallHeader ? { x: 45, y: -14 } : { x: 0, y: -15 }}
-        >
-          <S.RailItem>All A-Z</S.RailItem>
-          <S.RailItem>Brexit</S.RailItem>
-          <S.RailItem>Climate</S.RailItem>
-          <S.RailItem>Copyright</S.RailItem>
-          <S.RailItem>Migration</S.RailItem>
-          <S.RailItem>Deb on hover</S.RailItem>
-          <S.RailItem>Debate W</S.RailItem>
-          <S.RailItem>Debate X</S.RailItem>
-          <S.RailItem>Debate Y</S.RailItem>
-          <S.RailItem>Debate Z</S.RailItem>
-        </S.Rail>
+        <Rail />
       </S.Container>
     </HeaderContext.Provider>
   )
