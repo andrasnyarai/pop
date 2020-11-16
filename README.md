@@ -1,3 +1,3 @@
 # pop
 
-[live](https://reactjs.org/)
+[live](http://andrasnyarai.github.io/pop)
