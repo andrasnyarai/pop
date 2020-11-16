@@ -4,29 +4,25 @@ import logoSrc from '../../assets/logo.svg'
 import titleSrc from '../../assets/title.svg'
 import { RegistrationButton } from '../RegistrationButton'
 import { SearchButton } from '../SearchButton'
+import { easeInOut } from '../../transitions'
 import * as S from './styles'
 
 type Props = {
   isSmallHeader: boolean
 }
 
-const just = {
-  type: 'just',
-  velocity: 3,
-}
-
 export function Header({ isSmallHeader }: Props) {
   return (
-    <S.Container transition={just} animate={{ height: isSmallHeader ? 50 : 125 }}>
-      <S.Wrapper transition={just} initial={{ y: 30 }} animate={{ y: isSmallHeader ? 13 : 30 }}>
+    <S.Container transition={easeInOut} animate={{ height: isSmallHeader ? 50 : 125 }}>
+      <S.Wrapper transition={easeInOut} initial={{ y: 30 }} animate={{ y: isSmallHeader ? 13 : 30 }}>
         <S.Img src={logoSrc} style={{ width: 25, marginRight: 5 }} />
-        <S.Img src={titleSrc} transition={just} initial={{ y: 0 }} animate={{ y: isSmallHeader ? -60 : 0 }} />
+        <S.Img src={titleSrc} transition={easeInOut} initial={{ y: 0 }} animate={{ y: isSmallHeader ? -60 : 0 }} />
 
         <SearchButton isSmallHeader={isSmallHeader} />
         <RegistrationButton isSmallHeader={isSmallHeader} />
       </S.Wrapper>
       <S.Rail
-        transition={just}
+        transition={easeInOut}
         initial={{ x: 0, y: -15 }}
         animate={isSmallHeader ? { x: 45, y: -14 } : { x: 0, y: -15 }}
       >
