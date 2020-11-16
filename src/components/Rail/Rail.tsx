@@ -34,7 +34,7 @@ export function Rail() {
           const fadeAnimation = {
             transition: easeInOut,
             initial: { opacity: 1 },
-            animate: { opacity: isSmallHeader && i > lastIndexToVisible ? 0 : 1 },
+            animate: { opacity: isSmallHeader && i > (lastIndexToVisible as number) ? 0 : 1 },
           }
 
           return (

@@ -14,11 +14,11 @@ export function SearchButton() {
     setIsExpanded(!isSmallHeader)
   }, [isSmallHeader])
 
-  const inputRef = useRef(null)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const onClick = () => {
     setIsExpanded(true)
-    inputRef.current.focus()
+    inputRef.current?.focus()
   }
 
   const onBlur = () => {
