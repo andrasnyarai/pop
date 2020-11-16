@@ -30,7 +30,7 @@ export const Container = styled(motion.header)`
 export const Wrapper = styled(motion.div)`
   position: absolute;
   display: flex;
-
+  z-index: 2;
   width: calc(100% - 2 * var(--padding));
 `
 
@@ -39,6 +39,7 @@ export const Rail = styled(motion.div)`
   bottom: 0;
   display: flex;
   justify-content: space-between;
+  z-index: 1;
 
   width: calc(100% - 2 * var(--padding));
 
