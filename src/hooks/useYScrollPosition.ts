@@ -1,15 +1,20 @@
 import { useEffect, useRef, useState } from 'react'
+import throttle from 'lodash.throttle'
+
+function positive(num: number): number {
+  return Math.max(0, num)
+}
 
 export function useYScrollPosition() {
-  const [position, setPosition] = useState({ previous: 0, current: 0 })
+  const [position, setPosition] = useState({ previous: window.pageYOffset, current: window.pageYOffset })
 
   const isMounted = useRef(false)
 
   useEffect(() => {
     const handleScroll = () => {
       setPosition((previousPosition) => ({
-        previous: isMounted.current ? previousPosition.current : window.pageYOffset,
-        current: window.pageYOffset,
+        previous: isMounted.current ? previousPosition.current : positive(window.pageYOffset),
+        current: positive(window.pageYOffset),
       }))
 
       if (!isMounted.current) {
@@ -17,7 +22,7 @@ export function useYScrollPosition() {
       }
     }
 
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', throttle(handleScroll, 300))
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
