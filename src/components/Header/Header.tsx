@@ -10,9 +10,6 @@ import { easeInOut } from '../../transitions'
 import * as S from './styles'
 import { Rail } from '../Rail'
 
-// deploy
-// move rail comp
-
 export const HeaderContext = createContext({
   isSmallHeader: false,
 
@@ -47,7 +44,7 @@ export function Header() {
           <S.Img
             src={titleSrc}
             transition={easeInOut}
-            initial={{ y: 5 }}
+            initial={{ y: isSmallHeader || isExtraSmallScreen ? -60 : 5 }}
             animate={{ y: isSmallHeader || isExtraSmallScreen ? -60 : 5 }}
           />
 
